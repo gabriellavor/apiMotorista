@@ -56,9 +56,10 @@ class TipoVeiculoTableTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
+    public function testGetTIposveiculos()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->TipoVeiculo->getTIposveiculos();
+        $this->assertTrue(false);
     }
 
     /**
@@ -66,8 +67,9 @@ class TipoVeiculoTableTest extends TestCase
      *
      * @return void
      */
-    public function testValidationDefault()
+    public function testGetTIposveiculo()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->TipoVeiculo->getTIposveiculo(1);
+        $this->assertTrue(false);
     }
 }

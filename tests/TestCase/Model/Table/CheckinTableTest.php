@@ -24,7 +24,8 @@ class CheckinTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Checkin'
+        'app.Checkin',
+        'app.Motorista'
     ];
 
     /**
@@ -51,23 +52,22 @@ class CheckinTableTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
+    public function testRetornaTotalChegada()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $result = $this->Checkin->retornaTotalChegada();
+        $this->assertTrue(false);
+
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
+    public function testRetornaPeriodo()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $result = $this->Checkin->retornaPeriodo();
+        $this->assertTrue(false);
+    }
+
+    public function testOrigemDestinoPorTipoVeiculo()
+    {
+        $result = $this->Checkin->origemDestinoPorTipoVeiculo();
+        $this->assertTrue(false);
     }
 }

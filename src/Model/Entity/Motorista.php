@@ -32,6 +32,9 @@ class Motorista extends Entity
         'sexo' => true,
         'veiculo_proprio' => true,
         'tipo_veiculo' => true,
-        'tipo_cnh' => true
+        'tipo_cnh' => true,
+        'carregado' => true,
+        'codigo_origem' => true,
+        'codigo_destino' => true
     ];
 }

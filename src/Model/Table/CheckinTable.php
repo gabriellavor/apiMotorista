@@ -83,7 +83,6 @@ class CheckinTable extends Table
             'mes' => $subQueryMes,
         ];
         
-        
         return $this->find()->select($fields)
         ->innerJoin(['Motorista' => 'motorista'],'Motorista.codigo = Checkin.codigo_motorista')
         ->where(['Motorista.carregado' => 1]

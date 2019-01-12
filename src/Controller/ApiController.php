@@ -10,8 +10,8 @@ class ApiController extends AppController
     public function initialize()
     {
         parent::initialize();
-        //$this->RequestHandler->respondAs('json');
-        //$this->response->type('application/json');  
+        $this->RequestHandler->respondAs('json');
+        $this->response->type('application/json');  
         $this->autoRender = false; 
     }
 
@@ -63,6 +63,21 @@ class ApiController extends AppController
         $result = $this->Motorista->getMotoristaSemCarga();
         echo json_encode(['resultado' => $result]);
     }
+
+    public function incluirMotorista(){
+        $this->loadModel('Motorista');
+        $dado = $this->request->data;
+        $result = $this->Motorista->incluirMotorista($dado);
+        echo json_encode(['resultado' => $result]);
+    }
+
+    public function alterarMotorista(){
+        $this->loadModel('Motorista');
+        $dado = $this->request->data;
+        $result = $this->Motorista->alterarMotorista($dado);
+        echo json_encode(['resultado' => $result]);
+    }
+
     
     
 }

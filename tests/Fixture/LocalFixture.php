@@ -48,7 +48,13 @@ class LocalFixture extends TestFixture
         $this->records = [
             [
                 'codigo' => 1,
-                'descricao' => 'Lorem ipsum dolor sit amet',
+                'descricao' => 'Extra',
+                'latitude' => 1.5,
+                'longitude' => 1.5
+            ],
+            [
+                'codigo' => 2,
+                'descricao' => 'Loja',
                 'latitude' => 1.5,
                 'longitude' => 1.5
             ],

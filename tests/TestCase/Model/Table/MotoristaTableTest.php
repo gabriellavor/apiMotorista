@@ -24,7 +24,8 @@ class MotoristaTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Motorista'
+        'app.Motorista',
+        'app.Local'
     ];
 
     /**
@@ -56,21 +57,38 @@ class MotoristaTableTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
+    public function testgetMotoristas()
     {
         $retorno = $this->Motorista->getMotoristas();
         $esperado = [
             [
                 'nome' => 'Pedro Marcos Dias',
+                'id' => 1,
                 'idade' => 35,
                 'sexo' => 'M',
                 'veiculo_proprio' => True,
                 'tipo_veiculo' => 1,
-                'tipo_cnh' => 'A'
+                'tipo_cnh' => 'A',
+                'origem' => 'Extra',
+                'destino' => 'Loja'
             ]
         ];
         $this->assertEquals(json_encode($retorno),json_encode($esperado));
     }
 
+    public function testRetornaVeiculosProprios()
+    {
+        $this->assertTrue(false);
+    }
+
+    public function testIncluirMotorista()
+    {
+        $this->assertTrue(false);   
+    }
+
+    public function testAlterarMotorista()
+    {
+        $this->assertTrue(false);   
+    }
    
 }

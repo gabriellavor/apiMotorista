@@ -88,13 +88,19 @@ class MotoristaTable extends Table
     function getMotoristas(){
         $fields = [
             'nome' => 'nome',
+            'id' => 'Motorista.codigo',
             'idade' => 'idade',
             'sexo' => 'sexo',
             'veiculo_proprio' => 'veiculo_proprio',
             'tipo_veiculo' => 'tipo_veiculo',
-            'tipo_cnh' => 'tipo_cnh'
+            'tipo_cnh' => 'tipo_cnh',
+            'origem' => 'Origem.descricao',
+            'destino' => 'Destino.descricao',
         ];
-        $result = $this->find()->select($fields)->toArray();
+        $result = $this->find()->select($fields)
+        ->innerJoin(['Origem' => 'local'],'Origem.codigo = codigo_origem')
+        ->innerJoin(['Destino' => 'local'],'Destino.codigo = codigo_destino')
+        ->toArray();
         return $result;
     }
 
@@ -121,6 +127,14 @@ class MotoristaTable extends Table
         ];
         return $this->find()->select($fields)
         ->innerJoin(['Origem' => 'local'],'Origem.codigo = Motorista.codigo_origem')->where(['carregado' => 0]);
+    }
+
+    function incluirMotorista($dado){
+        return True;
+    }
+
+    function alterarMotorista($dado){
+        return True;
     }
     
 }
