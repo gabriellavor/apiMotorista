@@ -4,12 +4,17 @@
 composer create-project --prefer-dist cakephp/app
 ```
 # apiMotorista
-Aṕi para listar motoristas cadastrados (GET)
-/api/motoristas
+###API para listar motoristas cadastrados (GET)
 
 /api/motoristas
 
-/api/motoristas
+###API para alterar motoristas cadastrados (PUT)
+
+/api/motorista
+
+###API para incliir motoristas cadastrados (POST)
+
+/api/motorista
     
 /api/tipo-veiculos
 
