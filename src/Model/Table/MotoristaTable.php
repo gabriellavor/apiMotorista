@@ -10,14 +10,14 @@ use Cake\ORM\TableRegistry;
 /**
  * Motorista Model
  *
- * @method \App\Model\Entity\Motoristum get($primaryKey, $options = [])
- * @method \App\Model\Entity\Motoristum newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Motoristum[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Motoristum|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Motoristum|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Motoristum patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Motoristum[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Motoristum findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Motorista get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Motorista newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Motorista[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Motorista|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Motorista|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Motorista patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Motorista[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Motorista findOrCreate($search, callable $callback = null, $options = [])
  */
 class MotoristaTable extends Table
 {
@@ -232,6 +232,10 @@ class MotoristaTable extends Table
         $motorista->carregado = ($dado['carregado'] == 'S') ? 1 : 0;
         $motorista->codigo_origem = $this->Local->retornaLocal($dado['origem'],$dado['latitude_origem'],$dado['longitude_destino']);
         $motorista->codigo_destino = $this->Local->retornaLocal($dado['destino'],$dado['latitude_origem'],$dado['longitude_destino']);
+        $existe_motorista = $this->find()->select(['codigo' => 'codigo'])->where(['nome' => $motorista->nome]);
+        if(!empty($existe_motorista)){
+            $motorista->codigo = $existe_motorista[0]['codigo'];
+        }
         return $motorista;
     }
     
