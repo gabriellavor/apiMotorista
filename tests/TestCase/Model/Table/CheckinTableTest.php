@@ -25,7 +25,9 @@ class CheckinTableTest extends TestCase
      */
     public $fixtures = [
         'app.Checkin',
-        'app.Motorista'
+        'app.Motorista',
+        'app.TipoVeiculo',
+        'app.Local'
     ];
 
     /**
@@ -55,19 +57,31 @@ class CheckinTableTest extends TestCase
     public function testRetornaTotalChegada()
     {
         $result = $this->Checkin->retornaTotalChegada();
-        $this->assertTrue(false);
+        $this->assertEquals($result[0]['dia'],1);
+        $this->assertEquals($result[0]['semana'],1);
+        $this->assertEquals($result[0]['mes'],1);
 
     }
 
     public function testRetornaPeriodo()
     {
-        $result = $this->Checkin->retornaPeriodo();
-        $this->assertTrue(false);
+        $result = $this->Checkin->retornaPeriodo('2019-01-09');
+        $this->assertEquals($result['0'],'2019-01-06 00:00:00');
+        $this->assertEquals($result['1'],'2019-01-12 23:59:59');
+        $result = $this->Checkin->retornaPeriodo('2019-01-06');
+        $this->assertEquals($result['0'],'2019-01-06 00:00:00');
+        $this->assertEquals($result['1'],'2019-01-12 23:59:59');
+        $result = $this->Checkin->retornaPeriodo('2019-01-12');
+        $this->assertEquals($result['0'],'2019-01-06 00:00:00');
+        $this->assertEquals($result['1'],'2019-01-12 23:59:59');
+        $result = $this->Checkin->retornaPeriodo('2019-01-07');
+        $this->assertEquals($result['0'],'2019-01-06 00:00:00');
+        $this->assertEquals($result['1'],'2019-01-12 23:59:59');
     }
 
     public function testOrigemDestinoPorTipoVeiculo()
     {
         $result = $this->Checkin->origemDestinoPorTipoVeiculo();
-        $this->assertTrue(false);
+        $this->assertEquals($result->count(),2);
     }
 }

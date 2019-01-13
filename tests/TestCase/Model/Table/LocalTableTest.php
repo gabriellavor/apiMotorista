@@ -52,22 +52,41 @@ class LocalTableTest extends TestCase
     }
 
     /**
-     * Test initialize method
+     * Test RetornaLocalPorCodigo method
      *
      * @return void
      */
-    public function testInitialize()
+    public function testRetornaLocalPorCodigo()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $retorno = $this->Local->retornaLocalPorCodigo(1);
+        $this->assertEquals($retorno[0]['descricao'],'Extra');
     }
 
     /**
-     * Test validationDefault method
+     * Test RetornaLocalPorDescricao method
      *
      * @return void
      */
-    public function testValidationDefault()
+    public function testRetornaLocalPorDescricao()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $retorno = $this->Local->retornaLocalPorDescricao('Loja');
+        $this->assertEquals($retorno[0]['id'],2);
     }
+
+
+    /**
+     * Test RetornaLocal method
+     *
+     * @return void
+     */
+    public function testRetornaLocal()
+    {
+        $retorno = $this->Local->retornaLocal('Loja','-54.988','-58.666');
+        $this->assertEquals($retorno,2);
+
+        $retorno = $this->Local->retornaLocal('Loja 2','-54.988','-58.666');
+        $this->assertEquals($retorno,3);
+    }
+
+    
 }

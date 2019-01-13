@@ -58,8 +58,8 @@ class TipoVeiculoTableTest extends TestCase
      */
     public function testGetTIposveiculos()
     {
-        $this->TipoVeiculo->getTIposveiculos();
-        $this->assertTrue(false);
+        $retorno = $this->TipoVeiculo->getTIposveiculos();
+        $this->assertEquals(count($retorno),5);
     }
 
     /**
@@ -69,7 +69,8 @@ class TipoVeiculoTableTest extends TestCase
      */
     public function testGetTIposveiculo()
     {
-        $this->TipoVeiculo->getTIposveiculo(1);
-        $this->assertTrue(false);
+        $retorno = $this->TipoVeiculo->getTIposveiculo(1);
+        $this->assertEquals($retorno[0]['descricao'],'Caminhão 3/4');
     }
 }
+    

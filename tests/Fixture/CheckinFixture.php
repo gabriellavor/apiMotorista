@@ -58,7 +58,7 @@ class CheckinFixture extends TestFixture
         $this->records = [
             [
                 'codigo' => 1,
-                'data' => 1547001937,
+                'data' => date('Y-m-d H:i:s'),
                 'codigo_origem' => 1,
                 'codigo_destino' => 1,
                 'carregado' => 1,

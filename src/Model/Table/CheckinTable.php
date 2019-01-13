@@ -72,7 +72,7 @@ class CheckinTable extends Table
     }
 
     public function retornaTotalChegada(){
-        $periodo = $this->retornaPeriodo();
+        $periodo = $this->retornaPeriodo(date('Y-m-d'));
         
         $subQueryDia = $this->find()->where(['Day(data) = Day(NOW())'])->count();
         $subQuerySemana = $this->find()->where(["data BETWEEN '{$periodo[0]}' AND '{$periodo[1]}'"])->count();
@@ -89,17 +89,17 @@ class CheckinTable extends Table
         )->limit(1)->toArray();
     }
 
-    public function retornaPeriodo(){
-        $data = date('N');
+    public function retornaPeriodo($ndata){
+        $data = date('N',strtotime($ndata));
         if($data == 7){
             $ini = 0;
-            $fim = 7;
+            $fim = 6;
         }else{
             $ini = $data;
             $fim = 6 - $data;
         }
-        $ini = date('Y-m-d 00:00:00',strtotime("- $data day"));
-        $fim = date('Y-m-d 00:00:00',strtotime("+ $fim day"));
+        $ini = date('Y-m-d 00:00:00', strtotime("- $ini days",strtotime($ndata)));
+        $fim = date('Y-m-d 23:59:59', strtotime("+ $fim days",strtotime($ndata)));
         return [$ini,$fim];
     }
 

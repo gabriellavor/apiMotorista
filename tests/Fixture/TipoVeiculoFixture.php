@@ -46,9 +46,27 @@ class TipoVeiculoFixture extends TestFixture
         $this->records = [
             [
                 'codigo' => 1,
-                'descricao' => 'Lorem ipsum dolor sit amet'
+                'descricao' => 'Caminhão 3/4'
+            ],
+            [
+                'codigo' => 2,
+                'descricao' => 'Caminhão Toco'
+            ],
+            [
+                'codigo' => 3,
+                'descricao' => 'Caminhão Truck'
+            ],
+            [
+                'codigo' => 4,
+                'descricao' => 'Carreta Simples'
+            ],
+            [
+                'codigo' => 5,
+                'descricao' => 'Carreta Eixo Extendido'
             ],
         ];
         parent::init();
     }
+
+ 
 }

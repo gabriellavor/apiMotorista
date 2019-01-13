@@ -130,11 +130,109 @@ class MotoristaTable extends Table
     }
 
     function incluirMotorista($dado){
-        return True;
+        $retornoValidacao = $this->validaDados($dado);
+        if(!empty($retornoValidacao)){
+            return ['erro' => $retornoValidacao];
+        }
+        $motorista = $this->retornaObjeto($dado);
+        
+        if(!$this->save($motorista)){
+            return ['erro' => 'Não foi possivel atualizar os dados'];
+        }
+        
+        
+        $this->Checkin = TableRegistry::get('Checkin');
+        $checkin = $this->Checkin ->newEntity();
+        $checkin->codigo_motorista = $motorista->codigo;
+        $checkin->data = date('Y-m-d H:i:s');
+        $this->Checkin->save($checkin);
+        
+        return ['sucesso' => 'Registro incluido com sucesso!'];
+    
     }
 
     function alterarMotorista($dado){
-        return True;
+        if(!empty($dado['codigo'])){
+            $retornoValidacao = $this->validaDados($dado);
+            if(!empty($retornoValidacao)){
+                return ['erro' => $retornoValidacao];
+            }
+            
+            $motorista = $this->retornaObjeto($dado);
+            $motorista->codigo = $dado['codigo'];
+            
+            if(!$this->save($motorista)){
+                return ['erro' => 'Não foi possivel atualizar os dados'];
+            }
+            return ['sucesso' => 'Registro alterado com sucesso!'];
+        }
+        return ['erro' => 'Informe o código do motorista, utilize  a API (GET) /api/motorista'];
+    }
+
+    function validaDados($dado){
+        if(empty($dado['sexo']) || !in_array($dado['sexo'],['M','F'])){
+            return 'Informe o sexo, M para Masculino e F para Feminino';
+        }
+        
+        
+        if(empty($dado['veiculo_proprio']) || !in_array($dado['veiculo_proprio'],['S','N'])){
+            return 'Informe o veículo proprio, S para Sim e N para Não';
+        }
+
+        if(empty($dado['carregado']) || !in_array($dado['carregado'],['S','N'])){
+            return 'Informe se ésta carregado, S para Sim e N para Não';
+        }
+
+        if(empty($dado['origem'])){
+            return 'Informe a origem';
+        }
+
+        if(empty($dado['latitude_origem']) || empty($dado['longitude_origem'])){
+            return 'Informe a latitude e longitude da origem';
+        }
+
+        if(empty($dado['destino'])){
+            return 'Informe o destino';
+        }
+
+        if(empty($dado['latitude_destino']) || empty($dado['longitude_destino'])){
+            return 'Informe a latitude e longitude do destino';
+        }
+
+        if(empty($dado['tipo_cnh']) || !in_array($dado['tipo_cnh'],['A','B','C','D','E'])){
+            return 'Informe a CNH, tipos disponiveis A,B,C,D,E';
+        }
+        if(empty($dado['idade']) || !is_int($dado['idade'])){
+            return 'Informe a idade, somente números inteiros';
+        }
+        if($dado['idade'] < 18){
+            return 'É necessario ter mais de 18 anos';
+        }
+        if(empty($dado['nome'])){
+            return 'Informe o nome';
+        }
+        if(!empty($dado['codigo'])){
+            if($this->find()->select()->where(['codigo' => $dado['codigo']])->count() == 0){
+                return 'Motorista não encontrado';
+            }
+        }
+        
+    }
+
+    function retornaObjeto($dado){
+        $entities = TableRegistry::get('Motorista');
+        $this->Local = TableRegistry::get('Local');
+        $motorista = $entities->newEntity();
+        $motorista->nome = $dado['nome'];
+        $motorista->idade = $dado['idade'];
+        $motorista->tipo_cnh = $dado['tipo_cnh'];
+        $motorista->sexo = $dado['sexo'];
+        $motorista->veiculo_proprio = ($dado['veiculo_proprio'] == 'S') ? 1 : 0;
+        $motorista->tipo_veiculo = $dado['tipo_veiculo'];
+        $motorista->carregado = ($dado['carregado'] == 'S') ? 1 : 0;
+        $motorista->codigo_origem = $this->Local->retornaLocal($dado['origem'],$dado['latitude_origem'],$dado['longitude_destino']);
+        $motorista->codigo_destino = $this->Local->retornaLocal($dado['destino'],$dado['latitude_origem'],$dado['longitude_destino']);
+        return $motorista;
     }
     
 }

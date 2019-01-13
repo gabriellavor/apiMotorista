@@ -5,7 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+use Cake\ORM\TableRegistry;
 /**
  * Local Model
  *
@@ -66,4 +66,29 @@ class LocalTable extends Table
 
         return $validator;
     }
+
+    public function retornaLocalPorCodigo($codigo){
+        return $this->find()->select(['id' => 'codigo','descricao' => 'descricao'])->where([['codigo' => $codigo]])->toArray();
+    }
+
+    public function retornaLocalPorDescricao($descricao){
+        return $this->find()->select(['id' => 'codigo','descricao' => 'descricao'])->where([['descricao' => $descricao]])->toArray();
+    }
+
+    public function retornaLocal($descricao,$latitude,$longitude){
+        $local = $this->retornaLocalPorDescricao($descricao);
+        if(!empty($local)){
+            return $local[0]['id'];
+        }
+        $this->Local = TableRegistry::get('Local');
+        $local = $this->Local->newEntity();
+        $local->descricao = $descricao;
+        $local->latitude = $latitude;
+        $local->longitude = $longitude;
+        $this->Local->save($local);
+        return $local->codigo;
+        
+    }
+
+    
 }
