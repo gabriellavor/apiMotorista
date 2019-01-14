@@ -1,7 +1,13 @@
 # API
 
 ```bash
-composer create-project --prefer-dist cakephp/app
+docker-compose up -d
+docker exec -it teste_app_1 /bin/bash
+cd /var/www/html/apiMotorista
+git clone
+composer install
+exit
+cat script.sql | docker exec -i teste_db_1 /usr/bin/mysql -u root --password=1234 truckpad
 ```
 # API de Motorista
 ##### API para listar motoristas cadastrados (GET)
