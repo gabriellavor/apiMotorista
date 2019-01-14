@@ -10,8 +10,8 @@ class ApiController extends AppController
     public function initialize()
     {
         parent::initialize();
-        //$this->RequestHandler->respondAs('json');
-        //$this->response->type('application/json');  
+        $this->RequestHandler->respondAs('json');
+        $this->response->type('application/json');  
         $this->autoRender = false; 
     }
 
@@ -74,8 +74,9 @@ class ApiController extends AppController
     public function alterarMotorista(){
         $this->loadModel('Motorista');
         $dado = $this->request->data;
-        $result = $this->Motorista->alterarMotorista($dado);
+        $result = $this->Motorista->alterarMotorista($dado);        
         echo json_encode(['resultado' => $result]);
+        
     }
 
     

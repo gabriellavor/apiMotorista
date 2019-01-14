@@ -232,7 +232,7 @@ class MotoristaTable extends Table
         $motorista->carregado = ($dado['carregado'] == 'S') ? 1 : 0;
         $motorista->codigo_origem = $this->Local->retornaLocal($dado['origem'],$dado['latitude_origem'],$dado['longitude_destino']);
         $motorista->codigo_destino = $this->Local->retornaLocal($dado['destino'],$dado['latitude_origem'],$dado['longitude_destino']);
-        $existe_motorista = $this->find()->select(['codigo' => 'codigo'])->where(['nome' => $motorista->nome]);
+        $existe_motorista = $this->find()->select(['codigo' => 'codigo'])->where(['nome' => $motorista->nome])->toArray();
         if(!empty($existe_motorista)){
             $motorista->codigo = $existe_motorista[0]['codigo'];
         }
