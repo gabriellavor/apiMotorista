@@ -1,14 +1,14 @@
 # CONFIGURAR AMBIENTE
 
 ```bash
-cd docker
+Baixe a pasta docker
 docker-compose up -d
 docker exec -it docker_app_1 /bin/bash
 cd /var/www/html
 git clone https://github.com/gabriellavor/apiMotorista.git
 cd apiMotorista
 composer install
-mv /var/www/html/app.php /var/www/html/apiMotorista/config/app.php
+cp /var/www/html/apiMotorista/config/app.default.php /var/www/html/apiMotorista/config/app.php
 exit
 cat script.sql | docker exec -i docker_db_1 /usr/bin/mysql -u root --password=1234 truckpad
 
