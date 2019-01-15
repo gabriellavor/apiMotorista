@@ -11,6 +11,11 @@ composer install
 mv /var/www/html/app.php /var/www/html/apiMotorista/config/app.php
 exit
 cat script.sql | docker exec -i docker_db_1 /usr/bin/mysql -u root --password=1234 truckpad
+
+configure o seu host para
+127.0.0.1 truckpad.localhost
+
+para acessar truckpad.localhost:8080
 ```
 # API de Motorista
 ##### API para listar motoristas cadastrados (GET)

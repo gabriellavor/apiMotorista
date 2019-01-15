@@ -11,7 +11,6 @@ class ApiController extends AppController
     {
         parent::initialize();
         $this->RequestHandler->respondAs('json');
-        //$this->response->type('application/json');  
         $this->autoRender = false; 
     }
 
@@ -25,60 +24,84 @@ class ApiController extends AppController
     }
 
     public function getTiposVeiculos(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('TipoVeiculo');
         $result = $this->TipoVeiculo->getTIposveiculos();
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
     }
 
     public function getTiposVeiculo(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $codigo = $this->request->getParam('id');
         $this->loadModel('TipoVeiculo');
         $result = $this->TipoVeiculo->getTIposveiculo($codigo);
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
     }
 
     public function getCaminhoesCarregados(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Checkin');
         $result = $this->Checkin->retornaTotalChegada();
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
     }
 
     public function getVeiculosProprios(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Motorista');
         $result = $this->Motorista->retornaVeiculosProprios();
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
     }
     
     public function getOrigemDestinoPorTipo(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Checkin');
         $result = $this->Checkin->origemDestinoPorTipoVeiculo();
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
     }
 
     public function getOrigemDestinoMotorista(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Motorista');
         $result = $this->Motorista->getOrigemDestinoMotorista();
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
     }
 
     public function getMotoristaSemCarga(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Motorista');
         $result = $this->Motorista->getMotoristaSemCarga();
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
     }
 
     public function incluirMotorista(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Motorista');
         $dado = $this->request->data;
         $result = $this->Motorista->incluirMotorista($dado);
-        echo json_encode(['resultado' => $result]);
+        if(!empty($result['erro'])){
+            $this->response->statusCode(400);
+        }
+        $this->response->body(json_encode(['resultado' => $result]));
     }
 
     public function alterarMotorista(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Motorista');
         $dado = $this->request->data;
-        $result = $this->Motorista->alterarMotorista($dado);        
-        echo json_encode(['resultado' => $result]);
+        $result = $this->Motorista->alterarMotorista($dado);
+        if(!empty($result['erro'])){
+            $this->response->statusCode(400);
+        }
+        $this->response->body(json_encode(['resultado' => $result]));
         
     }
 
