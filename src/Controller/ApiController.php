@@ -11,14 +11,17 @@ class ApiController extends AppController
     {
         parent::initialize();
         $this->RequestHandler->respondAs('json');
-        $this->response->type('application/json');  
+        //$this->response->type('application/json');  
         $this->autoRender = false; 
     }
 
     public function getMotoristas(){
+        $this->response->statusCode(200);
+        $this->response->type('application/json');
         $this->loadModel('Motorista');
         $result = $this->Motorista->getMotoristas();
-        echo json_encode(['resultado' => $result]);
+        $this->response->body(json_encode(['resultado' => $result]));
+        return $this->response;
     }
 
     public function getTiposVeiculos(){

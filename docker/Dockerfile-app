@@ -1,15 +1,12 @@
 FROM ubuntu:16.04
 RUN apt-get update && apt-get install -y apache2 && apt-get install git -y && apt-get -y install php7.0 libapache2-mod-php7.0 && echo "ServerName localhost" >> /etc/apache2/httpd.conf && echo "ServerName localhost" >> /etc/apache2/apache2.conf && a2enmod rewrite && rm /etc/apache2/apache2.conf && apt-get clean
 RUN apt-cache search php7.0 && apt-get -y install php7.0-mysql php7.0-curl php7.0-gd php7.0-intl php-pear php-imagick php7.0-imap php7.0-mcrypt php-memcache  php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-mbstring php-gettext
-RUN cd /var/www/html/ && git clone https://github.com/gabriellavor/apiMotorista.git && cd ../../../
 RUN apt install curl php-cli php-mbstring git unzip -y
-RUN cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php && curl -sS https://getcomposer.org/installer -o composer-setup.php
-#RUN cd /var/www/html/apiMotorista/ && composer install
-#RUN apt install mysql-server -y && mysql_secure_installation -Y
+RUN cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php && curl -sS https://getcomposer.org/installer -o composer-setup.php && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN apt-get install vim -y
 COPY apache2.conf /etc/apache2/apache2.conf
 COPY truckpad.conf /etc/apache2/sites-available/truckpad.conf
-COPY app.php /var/www/html/apiMotorista/config
+COPY app.php /var/www/html/app.php
 RUN cd /etc/apache2/sites-available/ && a2ensite truckpad.conf && cd ../../../
 ENV APACHE_LOCK_DIR="/var/lock"
 ENV APACHE_PID_FILE="/var/run/apache2.pid"

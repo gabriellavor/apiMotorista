@@ -1,5 +1,7 @@
-DROP DATABASE truckpad;
+DROP DATABASE IF EXISTS truckpad;
+DROP DATABASE IF EXISTS test_truckpad;
 CREATE DATABASE truckpad;
+CREATE DATABASE test_truckpad;
 use truckpad;
 -- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
 --
